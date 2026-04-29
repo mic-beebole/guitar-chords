@@ -49,7 +49,7 @@ function renderSong(song: Song) {
       if (isRepeat) {
         const repeat = document.createElement("div");
         repeat.className = "bar-repeat";
-        repeat.textContent = "\u{1D10E}";
+        repeat.textContent = "%";
         barDiv.appendChild(repeat);
       } else {
         for (let ci = 0; ci < bar.length; ci++) {
