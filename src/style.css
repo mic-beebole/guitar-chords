@@ -86,11 +86,10 @@ nav a:hover:not(.active) {
 
 .degree-label {
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  color: #888;
-  text-transform: lowercase;
-  margin-bottom: -8px;
+  color: #999;
+  margin-bottom: 4px;
 }
 
 .group-section {
@@ -99,7 +98,7 @@ nav a:hover:not(.active) {
 
 .chord-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 16px;
 }
 
