@@ -1,0 +1,87 @@
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+  background: #fafafa;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tone-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tone-picker label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.tone-picker select {
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.group-section {
+  margin-bottom: 40px;
+}
+
+.chord-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.chord-wrapper {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  padding: 8px;
+  padding-top: 24px;
+  overflow: visible;
+}
+
+.chord-chart {
+  overflow: visible;
+}
+
+.chord-chart svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
