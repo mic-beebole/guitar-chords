@@ -182,9 +182,10 @@ nav a:hover:not(.active) {
 
 .bar {
   display: flex;
+  align-items: center;
   border-left: 2px solid #999;
-  padding: 4px 4px 12px;
-  min-height: 60px;
+  padding: 4px;
+  height: 200px;
 }
 
 .bar-row:first-of-type .bar {
@@ -202,9 +203,13 @@ nav a:hover:not(.active) {
 .bar-chord {
   flex: 1;
   min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .bar-chord .chord-chart {
+  width: 100%;
   padding-top: 16px;
 }
 
