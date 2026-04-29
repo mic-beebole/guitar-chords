@@ -9,6 +9,7 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         diatonic: resolve(__dirname, "diatonic.html"),
         compact: resolve(__dirname, "compact.html"),
+        standards: resolve(__dirname, "standards.html"),
       },
     },
   },

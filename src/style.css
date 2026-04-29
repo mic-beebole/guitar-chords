@@ -133,3 +133,83 @@ nav a:hover:not(.active) {
   color: #aaa;
   margin-top: 4px;
 }
+
+/* Standards page */
+#standards-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+}
+
+#song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: 20px;
+  align-self: start;
+}
+
+#song-list button {
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  color: #333;
+}
+
+#song-list button:hover {
+  background: #f0f0f0;
+}
+
+#song-list button.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+#lead-sheet h2 {
+  margin-bottom: 20px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.bar {
+  display: flex;
+  border-left: 2px solid #999;
+  padding: 4px 4px 12px;
+  min-height: 60px;
+}
+
+.bar-row:first-of-type .bar {
+  border-top: 2px solid #999;
+}
+
+.bar-row:last-of-type .bar {
+  border-bottom: 2px solid #999;
+}
+
+.bar-row .bar:last-child {
+  border-right: 2px solid #999;
+}
+
+.bar-chord {
+  flex: 1;
+  min-width: 0;
+}
+
+.bar-chord .chord-chart {
+  padding-top: 16px;
+}
+
+.bar-chord .chord-chart svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}

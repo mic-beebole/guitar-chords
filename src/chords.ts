@@ -163,6 +163,46 @@ export function findAllCompactVoicings(key: Note): CompactRow[] {
   return rows;
 }
 
+export function pickCompactGroups(chords: { root: Note; symbol: string }[]): number[] {
+  if (chords.length === 0) return [];
+  let bestGroups: number[] = [];
+  let bestTotal = Infinity;
+
+  for (const startGroup of [1, 2, 3]) {
+    const groups = [startGroup];
+    const startShape = findShape(chords[0].symbol, startGroup)!;
+    if (!startShape) continue;
+    let prevAvg = averageFret(startShape, chords[0].root as Note);
+    let total = 0;
+
+    for (let i = 1; i < chords.length; i++) {
+      let bestGroup = 1;
+      let bestDist = Infinity;
+      for (const g of [1, 2, 3]) {
+        const shape = findShape(chords[i].symbol, g);
+        if (!shape) continue;
+        const avg = averageFret(shape, chords[i].root as Note);
+        const dist = Math.abs(avg - prevAvg);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestGroup = g;
+        }
+      }
+      total += bestDist;
+      const shape = findShape(chords[i].symbol, bestGroup)!;
+      prevAvg = averageFret(shape, chords[i].root as Note);
+      groups.push(bestGroup);
+    }
+
+    if (total < bestTotal) {
+      bestTotal = total;
+      bestGroups = groups;
+    }
+  }
+
+  return bestGroups;
+}
+
 export function transposeChord(shape: ChordShape, targetNote: Note): { frets: (number | null)[]; position: number } {
   const exampleFret = EXAMPLE_ROOT_FRET;
   const targetFret = semitonesFromOpen(shape.rootString, targetNote);
