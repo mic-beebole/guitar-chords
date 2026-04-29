@@ -121,15 +121,24 @@ nav a:hover:not(.active) {
   overflow: visible;
 }
 
-.compact-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
+.compact-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  margin-top: 24px;
+  justify-content: center;
 }
 
-.group-tag {
-  text-align: center;
-  font-size: 11px;
-  color: #aaa;
-  margin-top: 4px;
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
