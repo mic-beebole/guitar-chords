@@ -33,11 +33,6 @@ function renderDiatonic(key: Note) {
       const wrapper = document.createElement("div");
       wrapper.className = "chord-wrapper";
 
-      const label = document.createElement("div");
-      label.className = "degree-label";
-      label.textContent = chord.degree;
-      wrapper.appendChild(label);
-
       const chartDiv = document.createElement("div");
       chartDiv.className = "chord-chart";
       wrapper.appendChild(chartDiv);

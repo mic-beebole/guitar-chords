@@ -86,11 +86,13 @@ const MAJOR_SCALE_INTERVALS = [0, 2, 4, 5, 7, 9, 11];
 const DIATONIC_SYMBOLS = ["Maj7", "m7", "m7", "Maj7", "7", "m7", "m7b5"];
 const DEGREE_LABELS = ["I", "ii", "iii", "IV", "V", "vi", "vii"];
 
+const FOURTHS_ORDER = [0, 3, 6, 2, 5, 1, 4];
+
 export function getDiatonicChords(key: Note): DiatonicChord[] {
   const keyIndex = NOTE_INDEX[key];
-  return MAJOR_SCALE_INTERVALS.map((interval, i) => ({
+  return FOURTHS_ORDER.map((i) => ({
     degree: DEGREE_LABELS[i],
-    root: NOTES[(keyIndex + interval) % 12],
+    root: NOTES[(keyIndex + MAJOR_SCALE_INTERVALS[i]) % 12],
     symbol: DIATONIC_SYMBOLS[i],
   }));
 }
