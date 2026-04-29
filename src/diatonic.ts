@@ -47,7 +47,7 @@ function renderDiatonic(key: Note) {
 
       const fingers: [number, number | "x"][] = [];
       for (let i = 0; i < 6; i++) {
-        const svgString = i + 1;
+        const svgString = 6 - i;
         const fret = frets[i];
         if (fret === null) {
           fingers.push([svgString, "x"]);
