@@ -112,16 +112,19 @@ export interface VoicedChord {
   group: number;
 }
 
-export function findCompactVoicings(key: Note): VoicedChord[] {
+export interface CompactRow {
+  voicings: VoicedChord[];
+  fretRange: [number, number];
+}
+
+export function findAllCompactVoicings(key: Note): CompactRow[] {
   const chords = getDiatonicChords(key);
-  let bestSequence: VoicedChord[] = [];
-  let bestTotal = Infinity;
+  const rows: CompactRow[] = [];
 
   for (const startGroup of [1, 2, 3]) {
     const sequence: VoicedChord[] = [{ chord: chords[0], group: startGroup }];
     const startShape = findShape(chords[0].symbol, startGroup)!;
     let prevAvg = averageFret(startShape, chords[0].root);
-    let total = 0;
 
     for (let i = 1; i < chords.length; i++) {
       let bestGroup = 1;
@@ -135,19 +138,29 @@ export function findCompactVoicings(key: Note): VoicedChord[] {
           bestGroup = g;
         }
       }
-      total += bestDist;
       const bestShape = findShape(chords[i].symbol, bestGroup)!;
       prevAvg = averageFret(bestShape, chords[i].root);
       sequence.push({ chord: chords[i], group: bestGroup });
     }
 
-    if (total < bestTotal) {
-      bestTotal = total;
-      bestSequence = sequence;
+    let minFret = Infinity;
+    let maxFret = 0;
+    for (const v of sequence) {
+      const shape = findShape(v.chord.symbol, v.group)!;
+      const { frets } = transposeChord(shape, v.chord.root);
+      for (const f of frets) {
+        if (f !== null) {
+          minFret = Math.min(minFret, f);
+          maxFret = Math.max(maxFret, f);
+        }
+      }
     }
+
+    rows.push({ voicings: sequence, fretRange: [minFret, maxFret] });
   }
 
-  return bestSequence;
+  rows.sort((a, b) => a.fretRange[0] - b.fretRange[0]);
+  return rows;
 }
 
 export function transposeChord(shape: ChordShape, targetNote: Note): { frets: (number | null)[]; position: number } {
