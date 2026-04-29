@@ -27,6 +27,11 @@ function renderSong(song: Song) {
 
   const groups = pickCompactGroups(flatChords);
 
+  function barsEqual(a: SongChord[], b: SongChord[]): boolean {
+    if (a.length !== b.length) return false;
+    return a.every((ch, i) => ch.root === b[i].root && ch.symbol === b[i].symbol);
+  }
+
   // Render 4 bars per row
   for (let rowStart = 0; rowStart < song.bars.length; rowStart += 4) {
     const row = document.createElement("div");
@@ -35,26 +40,36 @@ function renderSong(song: Song) {
     const rowEnd = Math.min(rowStart + 4, song.bars.length);
     for (let b = rowStart; b < rowEnd; b++) {
       const bar = song.bars[b];
+      const prevBar = b > 0 ? song.bars[b - 1] : null;
+      const isRepeat = prevBar !== null && barsEqual(bar, prevBar);
+
       const barDiv = document.createElement("div");
       barDiv.className = "bar";
 
-      for (let ci = 0; ci < bar.length; ci++) {
-        const chord = bar[ci];
-        const groupIdx = barGroupIndices[b][ci];
-        const group = groups[groupIdx];
+      if (isRepeat) {
+        const repeat = document.createElement("div");
+        repeat.className = "bar-repeat";
+        repeat.textContent = "\u{1D10E}";
+        barDiv.appendChild(repeat);
+      } else {
+        for (let ci = 0; ci < bar.length; ci++) {
+          const chord = bar[ci];
+          const groupIdx = barGroupIndices[b][ci];
+          const group = groups[groupIdx];
 
-        const chordDiv = document.createElement("div");
-        chordDiv.className = "bar-chord";
+          const chordDiv = document.createElement("div");
+          chordDiv.className = "bar-chord";
 
-        const chartDiv = document.createElement("div");
-        chartDiv.className = "chord-chart";
-        chordDiv.appendChild(chartDiv);
-        barDiv.appendChild(chordDiv);
+          const chartDiv = document.createElement("div");
+          chartDiv.className = "chord-chart";
+          chordDiv.appendChild(chartDiv);
+          barDiv.appendChild(chordDiv);
 
-        renderChordDiagram(chartDiv, chord.root as Note, chord.symbol, group, {
-          titleFontSize: 32,
-          frets: 3,
-        });
+          renderChordDiagram(chartDiv, chord.root as Note, chord.symbol, group, {
+            titleFontSize: 32,
+            frets: 3,
+          });
+        }
       }
 
       row.appendChild(barDiv);

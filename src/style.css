@@ -213,3 +213,13 @@ nav a:hover:not(.active) {
   height: auto;
   overflow: visible;
 }
+
+.bar-repeat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 48px;
+  color: #999;
+  user-select: none;
+}
