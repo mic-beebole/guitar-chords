@@ -3,24 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guitar Chord Shapes</title>
+    <title>Compact Circle of Fourths</title>
   </head>
   <body>
     <div id="app">
       <header>
-        <h1>Jazz Chord Voicings</h1>
+        <h1>Compact Voicings</h1>
         <div class="tone-picker">
-          <label for="tone-select">Tone:</label>
+          <label for="tone-select">Key:</label>
           <select id="tone-select"></select>
         </div>
         <nav>
-          <a href="./" class="active">All Shapes</a>
+          <a href="./">All Shapes</a>
           <a href="./diatonic.html">Diatonic</a>
-          <a href="./compact.html">Compact</a>
+          <a href="./compact.html" class="active">Compact</a>
         </nav>
       </header>
       <div id="chords"></div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/compact.ts"></script>
   </body>
 </html>

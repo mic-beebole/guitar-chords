@@ -101,6 +101,55 @@ export function findShape(symbol: string, group: number): ChordShape | undefined
   return CHORD_SHAPES.find(s => s.symbol === symbol && s.group === group);
 }
 
+function averageFret(shape: ChordShape, note: Note): number {
+  const { frets } = transposeChord(shape, note);
+  const played = frets.filter((f): f is number => f !== null);
+  return played.reduce((a, b) => a + b, 0) / played.length;
+}
+
+export interface VoicedChord {
+  chord: DiatonicChord;
+  group: number;
+}
+
+export function findCompactVoicings(key: Note): VoicedChord[] {
+  const chords = getDiatonicChords(key);
+  let bestSequence: VoicedChord[] = [];
+  let bestTotal = Infinity;
+
+  for (const startGroup of [1, 2, 3]) {
+    const sequence: VoicedChord[] = [{ chord: chords[0], group: startGroup }];
+    const startShape = findShape(chords[0].symbol, startGroup)!;
+    let prevAvg = averageFret(startShape, chords[0].root);
+    let total = 0;
+
+    for (let i = 1; i < chords.length; i++) {
+      let bestGroup = 1;
+      let bestDist = Infinity;
+      for (const g of [1, 2, 3]) {
+        const shape = findShape(chords[i].symbol, g)!;
+        const avg = averageFret(shape, chords[i].root);
+        const dist = Math.abs(avg - prevAvg);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestGroup = g;
+        }
+      }
+      total += bestDist;
+      const bestShape = findShape(chords[i].symbol, bestGroup)!;
+      prevAvg = averageFret(bestShape, chords[i].root);
+      sequence.push({ chord: chords[i], group: bestGroup });
+    }
+
+    if (total < bestTotal) {
+      bestTotal = total;
+      bestSequence = sequence;
+    }
+  }
+
+  return bestSequence;
+}
+
 export function transposeChord(shape: ChordShape, targetNote: Note): { frets: (number | null)[]; position: number } {
   const exampleFret = EXAMPLE_ROOT_FRET;
   const targetFret = semitonesFromOpen(shape.rootString, targetNote);

@@ -8,6 +8,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "index.html"),
         diatonic: resolve(__dirname, "diatonic.html"),
+        compact: resolve(__dirname, "compact.html"),
       },
     },
   },

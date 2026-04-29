@@ -120,3 +120,16 @@ nav a:hover:not(.active) {
   height: auto;
   overflow: visible;
 }
+
+.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+
+.group-tag {
+  text-align: center;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 4px;
+}
