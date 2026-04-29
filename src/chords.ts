@@ -76,6 +76,29 @@ function semitonesFromOpen(rootString: number, targetNote: Note): number {
   return (targetIndex - openIndex + 12) % 12;
 }
 
+export interface DiatonicChord {
+  degree: string;
+  root: Note;
+  symbol: string;
+}
+
+const MAJOR_SCALE_INTERVALS = [0, 2, 4, 5, 7, 9, 11];
+const DIATONIC_SYMBOLS = ["Maj7", "m7", "m7", "Maj7", "7", "m7", "m7b5"];
+const DEGREE_LABELS = ["I", "ii", "iii", "IV", "V", "vi", "vii"];
+
+export function getDiatonicChords(key: Note): DiatonicChord[] {
+  const keyIndex = NOTE_INDEX[key];
+  return MAJOR_SCALE_INTERVALS.map((interval, i) => ({
+    degree: DEGREE_LABELS[i],
+    root: NOTES[(keyIndex + interval) % 12],
+    symbol: DIATONIC_SYMBOLS[i],
+  }));
+}
+
+export function findShape(symbol: string, group: number): ChordShape | undefined {
+  return CHORD_SHAPES.find(s => s.symbol === symbol && s.group === group);
+}
+
 export function transposeChord(shape: ChordShape, targetNote: Note): { frets: (number | null)[]; position: number } {
   const exampleFret = EXAMPLE_ROOT_FRET;
   const targetFret = semitonesFromOpen(shape.rootString, targetNote);

@@ -57,6 +57,42 @@ h2 {
   font-weight: 600;
 }
 
+nav {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+nav a {
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #555;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+nav a.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+nav a:hover:not(.active) {
+  background: #f0f0f0;
+}
+
+.degree-label {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  text-transform: lowercase;
+  margin-bottom: -8px;
+}
+
 .group-section {
   margin-bottom: 40px;
 }
